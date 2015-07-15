@@ -26,3 +26,6 @@
 *.exe
 *.out
 *.app
+
+# Not required because of build file.
+makefile
