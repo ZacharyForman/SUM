@@ -6,19 +6,24 @@
 #
 # Overwrites any present file called 'makefile'.
 
-bin="bin"
+bin_dir="bin"
+obj_dir="obj"
 
-if [ ! -d "${bin}" ]; then
-  mkdir "${bin}"
+if [ ! -d "${bin_dir}" ]; then
+  mkdir "${bin_dir}"
+fi
+
+if [ ! -d "${obj_dir}" ]; then
+  mkdir "${obj_dir}"
 fi
 
 objects=""
-binary="sum"
+binary="${bin_dir}/sum"
 rules=""
 
 # Make object rules
 for file in *.cc; do
-  obj="${bin}/${file/%cc/o}"
+  obj="${obj_dir}/${file/%cc/o}"
   objects="$objects $obj"
   dependency=$(g++ -MM -MT "$obj" -std=c++11 $file)
   # Remove implanted newlines
@@ -37,8 +42,8 @@ echo >> makefile
 echo "OBJ=$objects" >> makefile
 echo "BIN=$binary" >> makefile
 echo >> makefile
-printf '%s\n\n%s\n\t%s' 'all: $(OBJ) $(BIN)' 'clean:' 'rm -rf $(OBJ) $(BIN)' >> makefile
-printf "%s: %s\n\t%s" "$binary" "$objects" "g++ $(LINKFLAGS) $(OBJ)"
+printf '%s\n\n%s\n\t%s\n\n' 'all: $(OBJ) $(BIN)' 'clean:' 'rm -rf $(OBJ) $(BIN)' >> makefile
+printf "%s:%s\n\t%s" "$binary" "$objects" '$(CC) $(LINKFLAGS) $(OBJ)' >> makefile
 echo "$rules" >> makefile
 
 make "$@"
