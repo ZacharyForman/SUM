@@ -13,7 +13,7 @@ if [ ! -d "${bin}" ]; then
 fi
 
 objects=""
-binaries=""
+binary="sum"
 rules=""
 
 # Make object rules
@@ -28,15 +28,6 @@ for file in *.cc; do
   rules=$(printf '%s\n\n%s' "$rules" "$rule")
 done
 
-# Make executable rules.
-for file in examples/*.cc; do
-  binary="${bin}/${file/%cc/exe}"
-  binaries="$binaries $binary"
-  rule=$(printf '%s: %s %s\n\t%s %s %s %s' "$binary" "$file" '$(OBJ)' '$(CC) \
-       $(LINKFLAGS)' "$file" '$(OBJ)' "-o $binary")
-  rules=$(printf '%s\n\n%s' "$rules" "$rule")
-done
-
 # build the actual makefile
 echo 'CC=g++' > makefile
 echo >> makefile
@@ -44,9 +35,10 @@ echo 'CFLAGS=-Wall -c -std=c++11' >> makefile
 echo 'LINKFLAGS=-Wall -std=c++11' >> makefile
 echo >> makefile
 echo "OBJ=$objects" >> makefile
-echo "BIN=$binaries" >> makefile
+echo "BIN=$binary" >> makefile
 echo >> makefile
 printf '%s\n\n%s\n\t%s' 'all: $(OBJ) $(BIN)' 'clean:' 'rm -rf $(OBJ) $(BIN)' >> makefile
+printf "%s: %s\n\t%s" "$binary" "$objects" "g++ $(LINKFLAGS) $(OBJ)"
 echo "$rules" >> makefile
 
 make "$@"
