@@ -3,6 +3,7 @@
 #include <cstdint>
 
 Random::Random(uint64_t seed)
+    : p(0)
 {
   for (int i = 0; i < 16; i++) {
     seed ^= seed >> 12;
