@@ -29,3 +29,6 @@
 
 # Not required because of build file.
 makefile
+
+# Name of executable
+sum
