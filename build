@@ -37,7 +37,7 @@ done
 echo 'CC=g++' > makefile
 echo >> makefile
 echo 'CFLAGS=-Wall -c -std=c++11' >> makefile
-echo 'LINKFLAGS=-Wall -std=c++11' >> makefile
+echo 'LINKFLAGS=-Wall -std=c++11 -lSDL2' >> makefile
 echo >> makefile
 echo "OBJ=$objects" >> makefile
 echo "BIN=$binary" >> makefile
