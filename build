@@ -25,7 +25,7 @@ rules=""
 for file in *.cc; do
   obj="${obj_dir}/${file/%cc/o}"
   objects="$objects $obj"
-  dependency=$(g++ -MM -MT "$obj" -std=c++11 $file)
+  dependency=$(g++ -MM -MT "$obj" -std=c++14 $file)
   # Remove implanted newlines
   dependency=$(echo $dependency | sed 's/ \\//g')
   rule=$(printf '%s\n\t$(CC) $(CFLAGS) %s -o %s' "$dependency" "$file" "$obj")
@@ -36,8 +36,8 @@ done
 # build the actual makefile
 echo 'CC=g++' > makefile
 echo >> makefile
-echo CFLAGS=-Wall -c -std=c++11 `sdl2-config --cflags` >> makefile
-echo LINKFLAGS=-Wall -std=c++11 `sdl2-config --libs` >> makefile
+echo CFLAGS=-Wall -c -std=c++14 `sdl2-config --cflags` >> makefile
+echo LINKFLAGS=-Wall -std=c++14 `sdl2-config --libs` >> makefile
 echo >> makefile
 echo "OBJ=$objects" >> makefile
 echo "BIN=$binary" >> makefile

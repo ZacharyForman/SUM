@@ -1,0 +1,19 @@
+Overall gist:
+  - Roguelike
+  - Hard & Fun
+
+Game details:
+  - Map is layers of 2d.
+    - Start at surface level, descend into cave.
+    - Can come back up, map remains as before.
+    - Render small chunks of the map at any one time.
+  - When your character dies, gravestone is added to graveyard
+    on the surface.
+  - Maps are procedurally generated from a random seed
+    - Users can provide their own seed.
+    - Savegames retain same terrain / dropped item / mobs.
+  - Mobs have clever AI, depending on enemy type.
+  - DnDesque array of classes/feats/skills.
+  - DnD style spellcasting.
+  - Resting is a legitimate challenge.
+  - Full array of cursed items.

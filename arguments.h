@@ -244,9 +244,9 @@ void ArgList::help()
   for (auto& arg : arguments) {
     std::stringstream ss;
     ss << "  " << arg.second->flag;
-    ss << std::string(std::max(1u, 20-ss.str().length()), ' ');
+    ss << std::string(std::max(std::string::size_type(1), 20-ss.str().length()), ' ');
     ss << "= " << arg.second->value();
-    ss << std::string(std::max(1u, 30-ss.str().length()), ' ');
+    ss << std::string(std::max(std::string::size_type(1), 30-ss.str().length()), ' ');
     ss << arg.second->help_text << std::endl;
     std::cerr << ss.str();
   }
